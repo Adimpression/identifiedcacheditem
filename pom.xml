@@ -4,7 +4,7 @@
 
     <groupId>identifiedcacheditem</groupId>
     <artifactId>identifiedcacheditem</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <properties>
         <appState>IsIdentifiedCachedItem</appState>
         <appName>identifiedcacheditem</appName>
@@ -19,7 +19,7 @@
     <scm>
         <developerConnection>scm:git:git@github.com:Adimpression/identifiedcacheditem.git</developerConnection>
         <connection>scm:git:git@github.com:Adimpression/identifiedcacheditem.git</connection>
-        <tag>identifiedcacheditem-1.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
