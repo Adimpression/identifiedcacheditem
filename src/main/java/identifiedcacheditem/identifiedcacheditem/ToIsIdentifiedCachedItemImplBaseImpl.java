@@ -44,36 +44,40 @@ public class ToIsIdentifiedCachedItemImplBaseImpl extends ToIsIdentifiedCachedIt
 
     @Override
     public void produce(final NotIdentifiedCachedItem request, final StreamObserver<IsIdentifiedCachedItem> responseObserver) {
-        final IsInput isInput;
-        final IsId isId;
+        try {
+            final IsInput isInput;
+            final IsId isId;
 
-        if (!request.hasIsInput()) {
-            throw new StatusRuntimeException(Status.INVALID_ARGUMENT.withDescription("422"));
+            if (!request.hasIsInput()) {
+                throw new StatusRuntimeException(Status.INVALID_ARGUMENT.withDescription("422"));
+            }
+
+            isInput = request.getIsInput();
+            if (!isInput.hasIsId()) {
+                throw new StatusRuntimeException(Status.INVALID_ARGUMENT.withDescription("422"));
+            }
+
+            isId = isInput.getIsId();
+            if (!isId.hasIsOutput()) {
+                throw new StatusRuntimeException(Status.INVALID_ARGUMENT.withDescription("422"));
+            }
+
+            final String isStringValue = isId.getIsOutput()
+                    .getIsStringValue();
+
+            if (isStringValue.isEmpty()) {
+                throw new StatusRuntimeException(Status.INVALID_ARGUMENT.withDescription("422"));
+            }
+
+            responseObserver.onNext(IsIdentifiedCachedItem.newBuilder()
+                    .setIsOutput(IsOutput.newBuilder()
+                            .setIsKnownBoolean(general.containsKey(isStringValue)
+                            )
+                            .build())
+                    .build());
+            responseObserver.onCompleted();
+        } catch (StatusRuntimeException e) {
+            responseObserver.onError(e);
         }
-
-        isInput = request.getIsInput();
-        if (!isInput.hasIsId()) {
-            throw new StatusRuntimeException(Status.INVALID_ARGUMENT.withDescription("422"));
-        }
-
-        isId = isInput.getIsId();
-        if (!isId.hasIsOutput()) {
-            throw new StatusRuntimeException(Status.INVALID_ARGUMENT.withDescription("422"));
-        }
-
-        final String isStringValue = isId.getIsOutput()
-                .getIsStringValue();
-
-        if (isStringValue.isEmpty()) {
-            throw new StatusRuntimeException(Status.INVALID_ARGUMENT.withDescription("422"));
-        }
-
-        responseObserver.onNext(IsIdentifiedCachedItem.newBuilder()
-                .setIsOutput(IsOutput.newBuilder()
-                        .setIsKnownBoolean(general.containsKey(isStringValue)
-                        )
-                        .build())
-                .build());
-        responseObserver.onCompleted();
     }
 }

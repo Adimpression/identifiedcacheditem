@@ -42,7 +42,8 @@ class ToIsIdentifiedCachedItemImplBaseImplTest extends Specification {
         stub.produce(item)
 
         then:
-        thrown StatusRuntimeException
+        def exception = thrown StatusRuntimeException
+        assert exception.message == "INVALID_ARGUMENT: 422"
     }
 
     def """Should not allow empty input"""() {
@@ -55,7 +56,8 @@ class ToIsIdentifiedCachedItemImplBaseImplTest extends Specification {
         stub.produce(item)
 
         then:
-        thrown StatusRuntimeException
+        def exception = thrown StatusRuntimeException
+        assert exception.message == "INVALID_ARGUMENT: 422"
     }
 
     def """Should not allow missing input -> id"""() {
@@ -68,7 +70,8 @@ class ToIsIdentifiedCachedItemImplBaseImplTest extends Specification {
         stub.produce(item)
 
         then:
-        thrown StatusRuntimeException
+        def exception = thrown StatusRuntimeException
+        assert exception.message == "INVALID_ARGUMENT: 422"
     }
 
     def """Should not allow empty input -> id"""() {
@@ -83,7 +86,8 @@ class ToIsIdentifiedCachedItemImplBaseImplTest extends Specification {
         stub.produce(item)
 
         then:
-        thrown StatusRuntimeException
+        def exception = thrown StatusRuntimeException
+        assert exception.message == "INVALID_ARGUMENT: 422"
     }
 
     def """Should not allow empty input -> id -> output"""() {
@@ -100,7 +104,8 @@ class ToIsIdentifiedCachedItemImplBaseImplTest extends Specification {
         stub.produce(item)
 
         then:
-        thrown StatusRuntimeException
+        def exception = thrown StatusRuntimeException
+        assert exception.message == "INVALID_ARGUMENT: 422"
     }
 
     def """Should not allow empty input -> id -> output -> string value"""() {
@@ -119,7 +124,8 @@ class ToIsIdentifiedCachedItemImplBaseImplTest extends Specification {
         stub.produce(item)
 
         then:
-        thrown StatusRuntimeException
+        def exception = thrown StatusRuntimeException
+        assert exception.message == "INVALID_ARGUMENT: 422"
     }
 
     def """Should succeed on non empty input -> id -> output -> string value"""() {
